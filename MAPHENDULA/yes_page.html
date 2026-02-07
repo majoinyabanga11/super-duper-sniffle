@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knew you would say yes!</title>
+    <link rel="stylesheet" href="./yes_style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="header_text">Knew you would say yes!</h1>
+        <div class="gif_container">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif">
+        </div>
+    </div>
+        <div id="yt-player-container" aria-hidden="true"></div>
+
+        <script>
+            // Create a hidden container for the YouTube player so audio can play without visible controls.
+            // The player is tiny and invisible but still allowed to autoplay because the user clicked "yes" to reach this page.
+            function _insertYTPlayerMarkup(){
+                var c = document.getElementById('yt-player-container');
+                c.style.position = 'fixed';
+                c.style.left = '0';
+                c.style.top = '0';
+                c.style.width = '1px';
+                c.style.height = '1px';
+                c.style.overflow = 'hidden';
+                c.style.opacity = '0';
+                c.style.pointerEvents = 'none';
+                var div = document.createElement('div');
+                div.id = 'yt-player';
+                c.appendChild(div);
+            }
+            _insertYTPlayerMarkup();
+        </script>
+
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script>
+            var player;
+            function onYouTubeIframeAPIReady(){
+                player = new YT.Player('yt-player', {
+                    height: '1',
+                    width: '1',
+                    videoId: 'zb_IOQhHvsE',
+                    playerVars: {
+                        autoplay: 1,
+                        controls: 0,
+                        rel: 0,
+                        showinfo: 0,
+                        iv_load_policy: 3,
+                        modestbranding: 1,
+                        playsinline: 1
+                    },
+                    events: {
+                        onReady: function(e){
+                            try { e.target.playVideo(); } catch (err) {}
+                        },
+                        onStateChange: function(e){
+                            if(e.data === YT.PlayerState.ENDED){
+                                try { e.target.playVideo(); } catch (err) {}
+                            }
+                        }
+                    }
+                });
+            }
+        </script>
+</body>
+</html>
